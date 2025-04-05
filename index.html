@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Operaciones de Conjuntos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Operaciones entre Conjuntos</h1>
+<div class="Conjuntos">
+  <button id="agregarBtn" style="margin-bottom: 5px;">Agregar Conjunto</button>
+  <div class="conjuntos-container" id="conjuntosContainer"></div>
+
+  <div class="operacion">
+    <label for="operacionInput">Operación:</label>
+    <div class="simbolos">
+      <button class="simbolo">∪</button>
+      <button class="simbolo">∩</button>
+      <button class="simbolo">-</button>
+      <button class="simbolo">Δ</button>
+      <button class="simbolo">(</button>
+      <button class="simbolo">)</button>
+    </div>
+    <input type="text" id="operacionInput" placeholder="Ej: (A∪B)∩C">
+    <button id="calculoBtn">Calcular</button>
+  </div>
+
+  <div class="resultado" id="resultado"></div>
+</div>
+  <script src="index.js"></script>
+</body>
+</html>
