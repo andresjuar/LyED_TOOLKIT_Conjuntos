@@ -93,17 +93,17 @@ function parseOperacion(expr) {
   return evalStack[0];
 }
 
-// Calcular operación
 document.getElementById('calculoBtn').addEventListener('click', () => {
   const conjuntosDiv = document.querySelectorAll('.conjunto');
+  const conjuntosVisuales = {};
 
+  // Leer conjuntos y tratar vacíos como conjunto vacío
   conjuntosDiv.forEach(div => {
     const [idInput, valuesInput] = div.querySelectorAll('input');
     const id = idInput.value.trim();
     const values = valuesInput.value.split(',').map(v => v.trim()).filter(v => v !== '');
-    if (id && values.length) {
-      conjuntos[id] = new Set(values);
-    }
+    conjuntos[id] = new Set(values); // Si está vacío, será new Set()
+    conjuntosVisuales[id] = `{${[...conjuntos[id]].join(', ')}}`;
   });
 
   const rawOperacion = document.getElementById('operacionInput').value.trim();
@@ -120,9 +120,15 @@ document.getElementById('calculoBtn').addEventListener('click', () => {
 
     if (!(resultSet instanceof Set)) throw new Error("Resultado inválido");
 
-    resultadoDiv.innerText = `Resultado: { ${[...resultSet].join(', ')} }`;
+    // Generar representación visual de la operación con valores
+    let operacionVisual = rawOperacion.replace(/[A-Za-z]/g, match => {
+      return conjuntosVisuales[match] || '{}';
+    });
+
+    resultadoDiv.innerText = `${operacionVisual} = {${[...resultSet].join(', ')}}`;
     resultadoDiv.style.display = 'block';
-} catch (error) {
+
+  } catch (error) {
     resultadoDiv.innerText = 'Error en la operación. Asegúrate de que esté bien escrita y que los conjuntos existan.';
     resultadoDiv.style.display = 'block';
     console.error(error);
